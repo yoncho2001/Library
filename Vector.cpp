@@ -90,23 +90,33 @@ void Vector<T>::pushBack(const T& x)
 	this->data[this->size - 1] = x;
 }
 template<typename T>
-void Vector<T>::popByData(const size_t& index)
+void Vector<T>::popByIndex(const size_t& index)
 {
+	if ((this->size - 1) == 0)
+	{
+		--this->size;
+		T* temp = new T[this->capacity];
+		delete[] data;
+   		this->data = temp;
+	}
+	else
+	{
     
-    T* temp = new T[this->size - 1];
-    for (size_t i = 0; i < index; ++i)
-    {
-        temp[i] = this->data[i];
-    }
-    for (size_t i = index + 1; i < size; ++i)
-    {
-        temp[i - 1] = this->data[i];
-    }
-    --this->size;
-    delete[] data;
-    this->data = temp;
-
+    	T* temp = new T[this->capacity];
+    	for (size_t i = 0; i < index; ++i)
+    	{
+    	    temp[i] = this->data[i];
+   	 	}
+   		for (size_t i = index + 1; i < size; ++i)
+    	{
+       		 temp[i - 1] = this->data[i];
+    	}
+    	--this->size;
+   		delete[] data;
+    	this->data = temp;
+	}
 }
+
 template <class T>
 bool Vector<T>::isEmpty() const {
     return (this->size == 0);

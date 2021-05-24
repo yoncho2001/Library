@@ -7,6 +7,7 @@ class String
 private:
     char *data;
     size_t size;
+    size_t capacity;
 public:
     String();
     String(const String &);
@@ -14,9 +15,14 @@ public:
     String(size_t size); 
     String(const char *data);
     ~String();
-    int getSize()const;
 
-    friend std::istream& operator>>(std::istream& input, const String& other);
+    const char& operator[](size_t x) const;
+	char& operator[](size_t x);
+    int getSize()const;
+    int getCapacity()const;
+    bool operator==(const String &);
+
+    friend std::istream& operator>>(std::istream& input,  String& other);
     friend std::ostream& operator<<(std::ostream& out, const String& other);
     
 

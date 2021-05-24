@@ -1,12 +1,13 @@
 #include "Library.h"
 
-
 int main()
 {
+
+
     Library a ;
     a.addBook();
-    a.addUser();
+    a.removeBook();
     a.allBooks();
-    a.printInfo(124);
-
+    a.printInfo(124); 
+    
 }

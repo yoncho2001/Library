@@ -15,6 +15,8 @@ public:
     Library& operator=(const  Library& other);
     void addBook();
     void addUser();
+    void removeBook();
+    void removeUser();
     void allBooks();
     void printInfo(size_t number);
 
