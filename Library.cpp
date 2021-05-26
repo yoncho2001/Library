@@ -24,24 +24,24 @@ Library& Library::operator=(const Library& other)
 void Library::addBook()
 {
     std::cin.ignore();
-    String author(500);
-    std::cout<<"Enter author (you have 500 simvols): ";
+    String author;
+    std::cout<<"Enter author (you have 100 simvols): ";
     std::cin>> author;
 
-    String name(500);
-    std::cout<<"Enter name (you have 500 simvols): ";
+    String name;
+    std::cout<<"Enter name (you have 100 simvols): ";
     std::cin>> name;
         
-    String genre(500); 
-    std::cout<<"Enter genre (you have 500 simvols): ";
+    String genre; 
+    std::cout<<"Enter genre (you have 100 simvols): ";
     std::cin>> genre;
 
-    String shortDes(500);
-    std::cout<<"Enter shortDes (you have 500 simvols): ";
+    String shortDes;
+    std::cout<<"Enter shortDes (you have 100 simvols): ";
     std::cin>> shortDes;
 
-    String keywords(500);
-    std::cout<<"Enter keywords (you have 500 simvols): ";
+    String keywords;
+    std::cout<<"Enter keywords (you have 100 simvols): ";
     std::cin>> keywords;    
     std::cin.ignore();
 
@@ -58,12 +58,12 @@ void Library::addBook()
 void Library::addUser()
 {
     std::cin.ignore();
-    String user(500);
-    std::cout<<"Enter user (you have 500 simvols): ";
+    String user;
+    std::cout<<"Enter user (you have 100 simvols): ";
     std::cin>> user;  
 
-    String pasword(500);
-    std::cout<<"Enter pasword (you have 500 simvols): ";
+    String pasword;
+    std::cout<<"Enter pasword (you have 100 simvols): ";
     std::cin>> pasword;  
     std::cin.ignore();
 
@@ -79,13 +79,16 @@ void Library::removeBook()
 {
     bool flag = false;
     std::cin.ignore();
-    String temp(500);
-    std::cout<<"Enter book name (you have 500 simvols): ";
+    String temp;
+    std::cout<<"Enter book name (you have 100 simvols): ";
     std::cin>> temp;
+
     for (size_t i = 0; i < this->books.getSize(); i++)
     {
+        std::cout <<this->books[i].getName()<<std::endl;
         if(this->books[i].getName() == temp)
         {
+            std::cout <<this->books[i].getName()<<std::endl;
             this->books.popByIndex(i);
             flag = true;
         }
@@ -100,8 +103,8 @@ void Library::removeUser()
 {
     bool flag = false;
     std::cin.ignore();
-    String temp(500);
-    std::cout<<"Enter user name (you have 500 simvols): ";
+    String temp;
+    std::cout<<"Enter user name (you have 100 simvols): ";
     std::cin>> temp;
     for (size_t i = 0; i < this->users.getSize(); i++)
     {
@@ -281,3 +284,67 @@ void Library::findBook( String& way, String& wayName )
    // }
     
 }
+
+void Library::sort( String& way)
+{
+    String author = "author";
+    String title = "title";
+    String year = "year";
+    String rating = "rating";
+
+    if (way == author)
+    {
+       Library::sortByAuthor();
+    }
+    if (way == title)
+    {
+        Library::sortByTitle();
+    }
+    if (way == year)
+    {
+        Library::sortByYear();
+    }
+    if (way == rating)
+    {
+        Library::sortByRating();
+    }
+   
+}
+
+ void Library::sortByAuthor()
+ {
+
+ }
+
+ void Library::sortByTitle()
+ {
+
+ }
+
+ void Library::sortByYear()
+ {
+     for (int i = 0; i < this->books.getSize() - 1; i++)
+	{
+		for (int j = i + 1; j < this->books.getSize(); j++)
+		{
+			if (this->books[i].getYear() > this->books[j].getYear())
+			{
+				std::swap(this->books[i],this->books[j]);
+			}
+		}
+	}
+ }
+
+ void Library::sortByRating()
+ {
+     for (int i = 0; i < this->books.getSize() - 1; i++)
+	{
+		for (int j = i + 1; j < this->books.getSize(); j++)
+		{
+			if (this->books[i].getRate() > this->books[j].getRate())
+			{
+				std::swap(this->books[i],this->books[j]);
+			}
+		}
+	}
+ }

@@ -5,7 +5,7 @@ String::String()
 {
     this->data = nullptr;
     this->size = 0;
-	this->capacity = 500;
+	this->capacity = 100;
 }
 String::String(const String& other)
 {
@@ -30,7 +30,6 @@ String& String::operator=(const String& other)
 	return *this;
 }
 String::String(size_t _capacity)
-
 {
 	this->size = 0;
 	this->capacity = _capacity;
@@ -60,7 +59,6 @@ const char& String::operator[](size_t index) const
 	return this->data[index];
 }
 
-
 char& String::operator[](size_t index)
 {
 	return this->data[index];
@@ -77,22 +75,24 @@ int String::getCapacity()const
 
 bool String::operator==(const String & other)
 {
-	return !strcmp(this->data,other.data);
+	return strcmp(this->data,other.data) == 0;
 }
 
 bool String::operator<(const String & other)
 {
 	return strcmp(this->data,other.data) < 0;
 }
+
 bool String::operator>(const String & other)
 {
 	return strcmp(this->data,other.data) > 0;
 }
+
 std::istream& operator>>(std::istream& input,  String& other)
 {
     
     input.getline(other.data, other.capacity);
-	other.size = std::strlen(other.data) + 1;
+	other.size = std::strlen(other.data) ;
 
     return input;
 }

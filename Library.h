@@ -29,5 +29,11 @@ public:
     
     void findBook( String& way,  String& wayName );
 
+    void sort(String& way);
+    void sortByAuthor();
+    void sortByTitle();
+    void sortByYear();
+    void sortByRating();
+
 };
 #include "Library.cpp"

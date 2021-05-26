@@ -21,7 +21,7 @@ Book::Book(const Book& other)
     Book::setKeywords(other.keywords);
     Book::setYear(other.year);
     Book::setRate(other.rate);
-    this-> id = counter++;
+    this-> id = other.id;
 }
 
 Book& Book::operator=(const Book& other)
@@ -35,7 +35,7 @@ Book& Book::operator=(const Book& other)
         Book::setKeywords(other.keywords);
         Book::setYear(other.year);
         Book::setRate(other.rate);
-        this-> id = counter++;
+        this-> id = other.id;
     }
 
     return *this;
