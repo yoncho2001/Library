@@ -11,14 +11,15 @@ private:
     String shortDes;
     String keywords;
     size_t year;
-    size_t number;
+    size_t id;
+    static size_t counter;
     double rate;
 
 public:
     Book();
     Book(const Book& other);
     Book& operator=(const  Book& other);
-    Book(const String author, const String name, const String genre, const String shortDes, const String keywords, size_t year, size_t number,double rate);
+    Book(const String author, const String name, const String genre, const String shortDes, const String keywords, size_t year, double rate);
 
     void setAutor(const String other);
     String getAuthor()const;
@@ -38,8 +39,7 @@ public:
     void setYear(const size_t other);
     size_t getYear()const;
 
-    void setNumber(const size_t other);
-    size_t getNumber()const;
+    size_t getID()const;
 
     void setRate(const double other);
     double getRate()const;

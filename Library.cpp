@@ -23,6 +23,7 @@ Library& Library::operator=(const Library& other)
 }
 void Library::addBook()
 {
+    std::cin.ignore();
     String author(500);
     std::cout<<"Enter author (you have 500 simvols): ";
     std::cin>> author;
@@ -42,23 +43,21 @@ void Library::addBook()
     String keywords(500);
     std::cout<<"Enter keywords (you have 500 simvols): ";
     std::cin>> keywords;    
+    std::cin.ignore();
 
     size_t year;
     std::cout<<"Enter year: ";
     std::cin>> year;
 
-    size_t number;
-    std::cout<<"Enter number: ";
-    std::cin>> number;
-
     double rate;
     std::cout<<"Enter rate: ";
     std::cin>> rate;
-    Book newBook (author, name,genre,shortDes,keywords,year,number,rate);
+    Book newBook (author, name,genre,shortDes,keywords,year,rate);
     this->books.pushBack(newBook);
 }
 void Library::addUser()
 {
+    std::cin.ignore();
     String user(500);
     std::cout<<"Enter user (you have 500 simvols): ";
     std::cin>> user;  
@@ -66,16 +65,20 @@ void Library::addUser()
     String pasword(500);
     std::cout<<"Enter pasword (you have 500 simvols): ";
     std::cin>> pasword;  
+    std::cin.ignore();
 
     bool admin;
     std::cout<<"Are you admin: ";
     std::cin>> admin;
+
     User newUser (user,pasword,admin);
     this->users.pushBack(newUser);
 }
 
 void Library::removeBook()
 {
+    bool flag = false;
+    std::cin.ignore();
     String temp(500);
     std::cout<<"Enter book name (you have 500 simvols): ";
     std::cin>> temp;
@@ -84,16 +87,19 @@ void Library::removeBook()
         if(this->books[i].getName() == temp)
         {
             this->books.popByIndex(i);
+            flag = true;
         }
-        else
-        {
-             std::cout<<"The book dont exist. ";
-        }
+    }
+    if (flag == false)
+    {
+         std::cout<<"The book dont exist. ";
     }
 }
     
 void Library::removeUser()
 {
+    bool flag = false;
+    std::cin.ignore();
     String temp(500);
     std::cout<<"Enter user name (you have 500 simvols): ";
     std::cin>> temp;
@@ -103,10 +109,10 @@ void Library::removeUser()
         {
             this->users.popByIndex(i);
         }
-        else
-        {
-             std::cout<<"The user dont exist. ";
-        }
+    }
+    if (flag == false)
+    {
+         std::cout<<"The user dont exist. ";
     }
 }
 
@@ -127,12 +133,84 @@ void  Library::allBooks()
 	    }
     }
 }
+
+void Library::addTestBook(const String& author, const String& name, const String& genre,const String& shortDes, const String& keywords, const size_t year, const size_t rate)
+{
+    Book newBook (author, name,genre,shortDes,keywords,year,rate);
+    this->books.pushBack(newBook);
+}
+
+void Library::addTestUser(const String& user, const String& pasword, const bool admin )
+{
+    User newUser (user,pasword,admin);
+    this->users.pushBack(newUser);
+}
+
+void Library::printAuthor( String& wayName)
+{
+    bool flag = false;
+    for (size_t i = 0; i < this->books.getSize(); i++)
+    {
+        if(this->books[i].getAuthor() == wayName)
+        {
+            flag = true;
+            std::cout << this->books[i];
+	    	std::cout << std::endl;
+            
+        }
+    }
+    if(flag == false)
+    {
+        std::cout<<"cant find anything ";
+        std::cout << "\n";
+    }
+}
+
+void  Library::printTitle( String& wayName)
+{
+    bool flag = false;
+    for (size_t i = 0; i < this->books.getSize(); i++)
+    {
+        if(this->books[i].getName()== wayName)
+        {
+            flag = true;
+            std::cout << this->books[i];
+	    	std::cout << std::endl;
+            
+        }
+    }
+    if(flag == false)
+    {
+        std::cout<<"cant find anything ";
+        std::cout << "\n";
+    }
+}
+
+void  Library::printTag( size_t& wayName)
+{
+    bool flag = false;
+    for (size_t i = 0; i < this->books.getSize(); i++)
+    {
+        if(this->books[i].getID()== wayName)
+        {
+            flag = true;
+            std::cout << this->books[i];
+	    	std::cout << std::endl;
+        }
+    }
+    if(flag == false)
+    {
+        std::cout<<"cant find anything ";
+        std::cout << "\n";
+    }
+}
+
 void  Library::printInfo( size_t number)
 {
     bool flag = false;
     for (size_t i = 0; i < this->books.getSize(); i++)
     {
-        if(this->books[i].getNumber()== number)
+        if(this->books[i].getID()== number)
         {
             flag = true;
             if(books[i].getAuthor().getSize()== 0)
@@ -166,8 +244,8 @@ void  Library::printInfo( size_t number)
              std::cout << books[i].getYear(); 
              std::cout << "\n";
 
-             std::cout << "Number:";
-             std::cout << books[i].getNumber(); 
+             std::cout << "ID:";
+             std::cout << books[i].getID(); 
              std::cout << "\n";
 
              std::cout << "Rate:" ;
@@ -181,4 +259,25 @@ void  Library::printInfo( size_t number)
         std::cout<<"This book dont exist. ";
         std::cout << "\n";
     }
+}
+
+void Library::findBook( String& way, String& wayName )
+{
+    String author = "author";
+    String title = "title";
+    String tag = "tag";
+    if (way == author)
+    {
+       Library::printAuthor(wayName);
+    }
+    if (way == title)
+    {
+        Library::printTitle(wayName);
+    }
+
+   // if (way == tag)
+   // {
+   //     Library::printTag(wayName);
+   // }
+    
 }

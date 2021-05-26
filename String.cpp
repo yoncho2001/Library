@@ -79,11 +79,20 @@ bool String::operator==(const String & other)
 {
 	return !strcmp(this->data,other.data);
 }
+
+bool String::operator<(const String & other)
+{
+	return strcmp(this->data,other.data) < 0;
+}
+bool String::operator>(const String & other)
+{
+	return strcmp(this->data,other.data) > 0;
+}
 std::istream& operator>>(std::istream& input,  String& other)
 {
     
     input.getline(other.data, other.capacity);
-	other.size = std::strlen(other.data);
+	other.size = std::strlen(other.data) + 1;
 
     return input;
 }

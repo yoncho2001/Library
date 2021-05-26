@@ -1,4 +1,5 @@
 #include "Book.h"
+size_t Book::counter = 0;
 Book::Book()
 {
 	this-> author;
@@ -7,7 +8,7 @@ Book::Book()
     this-> shortDes;
     this-> keywords;
     this-> year = 0;
-    this-> number = 0;
+    this-> id = counter++;
     this->rate = 0;
 }
 
@@ -19,8 +20,8 @@ Book::Book(const Book& other)
     Book::setShortDes(other.shortDes);
     Book::setKeywords(other.keywords);
     Book::setYear(other.year);
-    Book::setNumber(other.number);
     Book::setRate(other.rate);
+    this-> id = counter++;
 }
 
 Book& Book::operator=(const Book& other)
@@ -33,13 +34,13 @@ Book& Book::operator=(const Book& other)
         Book::setShortDes(other.shortDes);
         Book::setKeywords(other.keywords);
         Book::setYear(other.year);
-        Book::setNumber(other.number);
         Book::setRate(other.rate);
+        this-> id = counter++;
     }
 
     return *this;
 }
-Book::Book(const String author, const String name, const String genre, const String shortDes, const String keywords, size_t year, size_t number,double rate)
+Book::Book(const String author, const String name, const String genre, const String shortDes, const String keywords, size_t year, double rate)
 {
     Book::setAutor(author);
     Book::setName(name);
@@ -47,8 +48,8 @@ Book::Book(const String author, const String name, const String genre, const Str
     Book::setShortDes(shortDes);
     Book::setKeywords(keywords);
     Book::setYear(year);
-    Book::setNumber(number);
     Book::setRate(rate);
+    this-> id = counter++;
 }
 
 void Book::setAutor(const String other)
@@ -96,6 +97,11 @@ String Book::getKeywords()const
     return this->keywords;
 }
 
+size_t Book::getID()const
+{
+    return this->id;
+}
+
 void Book::setYear(const size_t other)
 {
     this->year = other;
@@ -103,15 +109,6 @@ void Book::setYear(const size_t other)
 size_t Book::getYear()const
 {
     return this->year;
-}
-
-void Book::setNumber(const size_t other)
-{
-    this->number = other;
-}
-size_t Book::getNumber()const
-{
-    return this->number;
 }
 
 void Book::setRate(const double other)
@@ -127,25 +124,25 @@ std::ostream& operator <<(std::ostream& out, const Book& book)
  {
     if(book.author.getSize()== 0)
     {
-    out << " Default :";
+    out << " Default ";
     out << "/n";
     }
     else
     {
-    out << " Book autor:";
+    out << " Book autor: ";
     out << book.author; 
     out << "\n";
 
-    out << " Book name:";
+    out << " Book name: ";
     out << book.name; 
     out << "\n";
      
-    out << " Book genre:";
+    out << " Book genre: ";
     out << book.genre; 
     out << "\n";
 
-    out << " Book number:";
-    out << book.number; 
+    out << " Book ID: ";
+    out << book.id; 
     out << "\n";
     }
     return out;

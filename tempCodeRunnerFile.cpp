@@ -1,0 +1,1 @@
+strcmp(this->data,other.data)
