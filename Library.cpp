@@ -285,12 +285,13 @@ void Library::findBook( String& way, String& wayName )
     
 }
 
-void Library::sort( String& way)
+void Library::sort( String& way, String& ascDesc)
 {
     String author = "author";
     String title = "title";
     String year = "year";
     String rating = "rating";
+    String desc = "desc";
 
     if (way == author)
     {
@@ -308,17 +309,39 @@ void Library::sort( String& way)
     {
         Library::sortByRating();
     }
+    if (desc == ascDesc)
+    {
+        Library::reverse();
+    }
    
 }
 
  void Library::sortByAuthor()
  {
-
+     for (int i = 0; i < this->books.getSize() - 1; i++)
+	{
+		for (int j = i + 1; j < this->books.getSize(); j++)
+		{
+			if (this->books[i].getAuthor() > this->books[j].getAuthor())
+			{
+				std::swap(this->books[i],this->books[j]);
+			}
+		}
+	}
  }
 
  void Library::sortByTitle()
  {
-
+     for (int i = 0; i < this->books.getSize() - 1; i++)
+	{
+		for (int j = i + 1; j < this->books.getSize(); j++)
+		{
+			if (this->books[i].getName() > this->books[j].getName())
+			{
+				std::swap(this->books[i],this->books[j]);
+			}
+		}
+	}
  }
 
  void Library::sortByYear()
@@ -348,3 +371,11 @@ void Library::sort( String& way)
 		}
 	}
  }
+
+ void Library::reverse()
+{
+    for (int i = 0; i < this->books.getSize() / 2; i++)
+    {
+        std::swap(this->books[i], this->books[this->books.getSize() - i - 1]);
+    }
+}
