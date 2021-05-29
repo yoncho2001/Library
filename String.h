@@ -18,7 +18,7 @@ public:
 
     const char& operator[](size_t x) const;
 	char& operator[](size_t x);
-    bool operator==(const String &);
+    bool operator==(const String &)const;
     bool operator<(const String &);
     bool operator>(const String &);
     int getSize()const;

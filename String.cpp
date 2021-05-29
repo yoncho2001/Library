@@ -11,7 +11,7 @@ String::String(const String& other)
 {
 	this->size = other.size;
 	this->capacity = other.capacity;
-	this->data = new char[size];
+	this->data = new char[capacity];
 	for (size_t i = 0; i < size;++i) {
 		this->data[i] = other.data[i];
 	}
@@ -22,7 +22,7 @@ String& String::operator=(const String& other)
 		delete[] this->data;
 		this->size = other.size;
 		this->capacity = other.capacity;
-		this->data = new char[size];
+		this->data = new char[capacity];
 		for (size_t i = 0; i < size; ++i) {
 			this->data[i] = other.data[i];
 		}
@@ -38,7 +38,7 @@ String::String(size_t _capacity)
 
 String::String(const char* data)
 {
-    this->size = strlen (data);
+    this->size = strlen (data) ;
 	this->capacity = this->size * 2;
 	this->data = new char[this->capacity];
 	for (size_t i = 0; i < size; ++i)
@@ -73,9 +73,19 @@ int String::getCapacity()const
   return capacity;
 }
 
-bool String::operator==(const String & other)
+bool String::operator==(const String & other)const
 {
-	return strcmp(this->data,other.data) == 0;
+	std::cout<<this->data<<"/"<<other.data<<"?"<<std::endl;
+	if (this->size != other.size) {
+        return false;
+    }
+	else
+	{
+		std::cout<<this->data<<"/"<<other.data<<"?";
+		return strcmp(this->data,other.data)==0;
+
+	}
+	
 }
 
 bool String::operator<(const String & other)
