@@ -23,7 +23,7 @@ Library& Library::operator=(const Library& other)
 }
 void Library::addBook()
 {
-    std::cin.ignore();
+
     String author;
     std::cout<<"Enter author (you have 100 simvols): ";
     std::cin>> author;
@@ -78,14 +78,14 @@ void Library::addUser()
 void Library::removeBook()
 {
     bool flag = false;
-    std::cin.ignore();
+    
     String temp;
     std::cout<<"Enter book name (you have 100 simvols): ";
     std::cin>> temp;
 
     for (size_t i = 0; i < this->books.getSize(); i++)
     {
-        std::cout <<this->books[i].getName()<<std::endl;
+        std::cout <<temp <<"/"<<this->books[i].getName()<<std::endl;
         if(this->books[i].getName() == temp)
         {
             std::cout <<this->books[i].getName()<<std::endl;
@@ -379,3 +379,60 @@ void Library::sort( String& way, String& ascDesc)
         std::swap(this->books[i], this->books[this->books.getSize() - i - 1]);
     }
 }
+
+void Library::saveToFileBook(const char* fileName )
+ {
+    std::ofstream fileOut;
+    fileOut.open(fileName);
+    if (fileOut.is_open())
+    {
+        for (size_t i = 0; i < this->books.getSize(); i++)
+        {
+           this->books[i].saveToFile(fileOut);
+           fileOut << "\n";
+        }
+        fileOut.close();
+    }
+ }
+
+ void Library::saveToFileUser(const char* fileName)
+ {
+    std::ofstream fileOut;
+    fileOut.open(fileName);
+    if (fileOut.is_open())
+    {
+        for (size_t i = 0; i < this->users.getSize(); i++)
+        {
+            this->users[i].saveToFile(fileOut);
+            fileOut << "\n";
+        }
+        fileOut.close();
+    }
+ }
+//------
+/* void Library::loadFromFileBook(const char* fileName)
+ {
+    std::ifstream fileIn;
+    fileIn.open(fileName);
+    if (fileIn.is_open())
+    {
+        char row[100]={'\0'};
+        
+        String user;
+        fileIn.getline(row,100,'\n');
+        
+
+        fileIn.close();
+    }
+ }
+
+ void Library::loadFromFileBook(const char* fileName)
+ {
+    std::ifstream fileIn;
+    fileIn.open(fileName);
+    if (fileIn.is_open())
+    {
+        
+        fileIn.close();
+    }
+ }*/

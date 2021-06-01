@@ -1,1 +1,1 @@
-strcmp(this->data,other.data)
+std::cout<<(name == name2)

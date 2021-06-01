@@ -1,4 +1,5 @@
 #pragma once
+#include <fstream>
 #include "Book.h"
 #include "User.h"
 #include "Vector.h"
@@ -35,6 +36,11 @@ public:
     void sortByYear();
     void sortByRating();
     void reverse();
+
+    void saveToFileBook(const char* fileName);
+    void saveToFileUser(const char* fileName);
+  // void loadFromFileBook(const char* fileName);
+  //  void loadFromFileUser(const char* fileName);
 
 };
 #include "Library.cpp"
