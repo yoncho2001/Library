@@ -1,4 +1,5 @@
 #include "Library.h"
+#include <cstring>
 Library::Library()
 {
 	this->books;
@@ -57,7 +58,7 @@ void Library::addBook()
 }
 void Library::addUser()
 {
-    std::cin.ignore();
+   
     String user;
     std::cout<<"Enter user (you have 100 simvols): ";
     std::cin>> user;  
@@ -95,7 +96,7 @@ void Library::removeBook()
     }
     if (flag == false)
     {
-         std::cout<<"The book dont exist. ";
+         std::cout<<"The book dont exist. "<<std::endl;
     }
 }
     
@@ -129,11 +130,12 @@ void  Library::allBooks()
     }
     else
     {
-     std::cout << std::endl;
+      std::cout << std::endl;
       for (int i = 0; i < this->books.getSize(); ++i) {
 	    	std::cout << this->books[i];
 	    	std::cout << std::endl;
 	    }
+      std::cout <<" ---END--- "<< std::endl;
     }
 }
 
@@ -254,6 +256,7 @@ void  Library::printInfo( size_t number)
              std::cout << "Rate:" ;
              std::cout<<books[i].getRate();
              std::cout << "\n";
+             std::cout << "---END---";
             }
         }
     }
@@ -380,59 +383,90 @@ void Library::sort( String& way, String& ascDesc)
     }
 }
 
-void Library::saveToFileBook(const char* fileName )
+void Library::saveToFileBook(std::ostream& out)
  {
-    std::ofstream fileOut;
-    fileOut.open(fileName);
-    if (fileOut.is_open())
+     out <<this->books.getSize()<< "\n";
+    for (size_t i = 0; i < this->books.getSize(); i++)
     {
-        for (size_t i = 0; i < this->books.getSize(); i++)
-        {
-           this->books[i].saveToFile(fileOut);
-           fileOut << "\n";
-        }
-        fileOut.close();
+        this->books[i].saveToFile(out);
+        out << "\n";
     }
  }
 
- void Library::saveToFileUser(const char* fileName)
+ void Library::saveToFileUser(std::ostream& out)
  {
-    std::ofstream fileOut;
-    fileOut.open(fileName);
-    if (fileOut.is_open())
+    out <<this->users.getSize()<< "\n";
+    for (size_t i = 0; i < this->users.getSize(); i++)
     {
-        for (size_t i = 0; i < this->users.getSize(); i++)
-        {
-            this->users[i].saveToFile(fileOut);
-            fileOut << "\n";
-        }
-        fileOut.close();
+        this->users[i].saveToFile(out);
+        out << "\n";
     }
- }
-//------
-/* void Library::loadFromFileBook(const char* fileName)
- {
-    std::ifstream fileIn;
-    fileIn.open(fileName);
-    if (fileIn.is_open())
-    {
-        char row[100]={'\0'};
-        
-        String user;
-        fileIn.getline(row,100,'\n');
-        
-
-        fileIn.close();
-    }
+    
  }
 
- void Library::loadFromFileBook(const char* fileName)
+ void Library::loadFromFileBook(std::istream& in)
  {
-    std::ifstream fileIn;
-    fileIn.open(fileName);
-    if (fileIn.is_open())
+    char* charSize = new char[3];
+    in.getline (charSize , 3);
+    size_t size = atoi(charSize);
+
+    char* stream = new char[124];
+
+    for (size_t i = 0; i < size; i++)
     {
-        
-        fileIn.close();
+        Book tempBook;
+        in.getline (stream,124,'|');
+        tempBook.setAutor(stream);
+
+        in.getline (stream,124,'|');
+        tempBook.setName(stream);
+
+        in.getline (stream,124,'|');
+        tempBook.setGenre(stream);
+
+        in.getline (stream,124,'|');
+        tempBook.setShortDes(stream);
+
+        in.getline (stream,124,'|');
+        tempBook.setKeywords(stream);
+
+        in.getline (stream,124,'|');
+        tempBook.setYear(atoi(stream));
+
+        in.getline (stream,124,'|');
+        tempBook.setID(atoi(stream));
+
+        in.getline (stream,124);
+        tempBook.setRate(atof(stream));
+
+        this->books.pushBack(tempBook);
     }
- }*/
+    delete[] charSize;
+    delete[] stream;
+ }
+
+ void Library::loadFromFileUser(std::istream& in)
+ {
+    char* charSize = new char[3];
+    in.getline (charSize , 3);
+    size_t size = atoi(charSize);
+
+    char* stream = new char[124];
+
+    for (size_t i = 0; i < size; i++)
+    {
+        User tempUser;
+        in.getline (stream,124,'|');
+        tempUser.setName(stream);
+
+        in.getline (stream,124,'|');
+        tempUser.setPaswor(stream);
+
+        in.getline (stream,124);
+        tempUser.setAdmin(atoi(stream));
+
+        this->users.pushBack(tempUser);
+    }
+    delete[] charSize;
+    delete[] stream;
+ }

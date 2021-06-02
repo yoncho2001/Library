@@ -37,10 +37,10 @@ public:
     void sortByRating();
     void reverse();
 
-    void saveToFileBook(const char* fileName);
-    void saveToFileUser(const char* fileName);
-  // void loadFromFileBook(const char* fileName);
-  //  void loadFromFileUser(const char* fileName);
+    void saveToFileBook(std::ostream& out);
+    void saveToFileUser(std::ostream& out);
+    void loadFromFileBook(std::istream& in);
+    void loadFromFileUser(std::istream& in);
 
 };
 #include "Library.cpp"

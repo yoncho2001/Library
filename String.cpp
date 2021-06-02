@@ -46,7 +46,7 @@ String::String(const char *data)
 	this->size = strlen(data);
 	this->capacity = this->size * 2;
 	this->data = new char[this->capacity];
-	for (size_t i = 0; i < size; ++i)
+	for (size_t i = 0; i < this->size; ++i)
 	{
 		this->data[i] = data[i];
 	}

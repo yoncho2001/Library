@@ -1,2 +1,3 @@
-kiro|ko|staa|staa|kkkkkk|200|9|50
-pesho|ko5| ne staa|ne staa|gg|50|10|60
+2
+kiro|ko|staa|staa|kkkkkk|200|8|50
+pesho|ko5| ne staa|ne staa|gg|50|9|60

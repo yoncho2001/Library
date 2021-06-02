@@ -102,6 +102,11 @@ size_t Book::getID() const
     return this->id;
 }
 
+void Book::setID(const size_t other)
+{
+    this->id = other;
+}
+
 void Book::setYear(const size_t other)
 {
     this->year = other;

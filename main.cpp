@@ -1,6 +1,5 @@
 #include "Library.h"
 
-
 int main()
 {
     String author = "kiro";
@@ -27,26 +26,47 @@ int main()
     String pas2 = "555ddfeeesd5";
     bool admin2= false;
     
-    Book as(author, name, genre, shortDes, keywords, year, rate);
-    std::cout<<(name == name2)<<"\n";//string ==/copy
 
     
 
     Library a ;
   
-    a.addTestBook(author, name, genre, shortDes, keywords, year, rate);
-    a.addTestBook(author2, name2, genre2, shortDes2, keywords2, year2, rate2);
-    a.addTestUser(user,pas,admin);
-    a.addTestUser(user2,pas2,admin2);
+   // a.addTestBook(author, name, genre, shortDes, keywords, year, rate);
+  //  a.addTestBook(author2, name2, genre2, shortDes2, keywords2, year2, rate2);
+   // a.addTestUser(user,pas,admin);
+   // a.addTestUser(user2,pas2,admin2);
     //a.addBook();
     //a.reverse();
-    a.allBooks();
+    //a.allBooks();
    
-   a.saveToFileBook("Books.txt");
-   a.saveToFileUser("Users.txt");
+   /* std::ofstream bookOut;
+    bookOut.open("Books.txt");
+    a.saveToFileBook(bookOut);
+    bookOut.close();
+
+    std::ofstream userOut;
+    userOut.open("Users.txt");
+    a.saveToFileUser(userOut);
+    userOut.close();*/
+
+  
+    std::ifstream userIn("Users.txt");
+   a.loadFromFileUser(userIn);
+   userIn.close();
+  a.addUser();
+
+   std::ofstream userOut;
+    userOut.open("Users.txt");
+    a.saveToFileUser(userOut);
+    userOut.close();
+  // a.allBooks();
+    
+
+  // a.printInfo(8);
+
 
    
-    std::cout<<"\n";
+  /*  std::cout<<"\n";
     String c = "ko";
     String b = "kiro";
     a.removeBook();

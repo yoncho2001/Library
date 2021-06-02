@@ -39,6 +39,7 @@ public:
     void setYear(const size_t other);
     size_t getYear() const;
 
+    void setID(const size_t other);
     size_t getID() const;
 
     void setRate(const double other);

@@ -28,7 +28,7 @@ public:
     friend std::istream &operator>>(std::istream &input, String &other)
     {
 
-        input.ignore();
+        //input.ignore();
         input.getline(other.data, 128);
 
         other.size = std::strlen(other.data);

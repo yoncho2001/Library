@@ -1,1 +1,1 @@
-std::cout<<(name == name2)
+50
