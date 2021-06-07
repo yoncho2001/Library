@@ -20,10 +20,13 @@ public:
     const char &operator[](size_t x) const;
     char &operator[](size_t x);
     bool operator==(const String &) const;
+    bool operator!=(const String &) const;
     bool operator<(const String &);
     bool operator>(const String &);
     int getSize() const;
     int getCapacity() const;
+    char* getData()const;
+
 
     friend std::istream &operator>>(std::istream &input, String &other)
     {

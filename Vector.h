@@ -16,6 +16,7 @@ public:
 	Vector();
 	Vector(const Vector<T> &other);
 	Vector &operator=(const Vector<T> &other);
+	bool operator==(const Vector<T> &other);
 	~Vector();
 
 	const T &operator[](size_t x) const;

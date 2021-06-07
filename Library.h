@@ -10,10 +10,14 @@ class Library
 private:
     Vector<Book> books;
     Vector<User> users;
+    String filepathBooks;
+    String filepathUsers;
 public:
     Library();
     Library(const Library& other);
     Library& operator=(const  Library& other);
+
+    const Vector<User>& getUsers()const;
     void addBook();
     void addUser();
     void removeBook();
@@ -26,7 +30,7 @@ public:
     void printInfo(size_t number);
     void printAuthor( String& wayName);
     void printTitle( String& wayName);
-    void printTag( size_t& wayName);
+    void printTag( String& wayName);
     
     void findBook( String& way,  String& wayName );
 
@@ -41,6 +45,9 @@ public:
     void saveToFileUser(std::ostream& out);
     void loadFromFileBook(std::istream& in);
     void loadFromFileUser(std::istream& in);
+
+    void open();
+    void save();
 
 };
 #include "Library.cpp"

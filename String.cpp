@@ -77,11 +77,21 @@ int String::getCapacity() const
 {
 	return capacity;
 }
+char* String::getData()const
+{
+	return this->data;
+}
 
 bool String::operator==(const String &other) const
 {
 
 	return strcmp(this->data, other.data) == 0;
+}
+
+bool String::operator!=(const String &other) const
+{
+
+	return strcmp(this->data, other.data) != 0;
 }
 
 bool String::operator<(const String &other)

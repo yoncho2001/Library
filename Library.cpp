@@ -4,12 +4,16 @@ Library::Library()
 {
 	this->books;
     this->users;
+    this->filepathBooks;
+    this->filepathUsers;
 }
 
 Library::Library(const Library& other)
 {
     this->books = other.books ;
     this->users = other.users ;
+    this->filepathBooks = other.filepathBooks ;
+    this->filepathUsers = other.filepathUsers ;
 }
 
 Library& Library::operator=(const Library& other)
@@ -18,10 +22,18 @@ Library& Library::operator=(const Library& other)
     {
         this->books = other.books ;
         this->users = other.users ;
+        this->filepathBooks = other.filepathBooks ;
+        this->filepathUsers = other.filepathUsers ;
     }
 
     return *this;
 }
+
+const Vector<User>& Library::getUsers()const
+{
+    return this->users;
+}
+
 void Library::addBook()
 {
 
@@ -122,7 +134,7 @@ void Library::removeUser()
 
 void  Library::allBooks()
 {
-    std::cout << " Books:";
+    std::cout << " Books:"<<std::endl;
        if(this->books.isEmpty())
     {
         std::cout << " No books.";
@@ -130,8 +142,9 @@ void  Library::allBooks()
     }
     else
     {
-      std::cout << std::endl;
-      for (int i = 0; i < this->books.getSize(); ++i) {
+      for (int i = 0; i < this->books.getSize(); ++i)
+        {
+            std::cout << "Book "<< i+1 << std::endl;
 	    	std::cout << this->books[i];
 	    	std::cout << std::endl;
 	    }
@@ -191,12 +204,12 @@ void  Library::printTitle( String& wayName)
     }
 }
 
-void  Library::printTag( size_t& wayName)
+void  Library::printTag( String& wayName)
 {
     bool flag = false;
     for (size_t i = 0; i < this->books.getSize(); i++)
     {
-        if(this->books[i].getID()== wayName)
+        if(this->books[i].getID()== atoi(wayName.getData()))
         {
             flag = true;
             std::cout << this->books[i];
@@ -281,10 +294,10 @@ void Library::findBook( String& way, String& wayName )
         Library::printTitle(wayName);
     }
 
-   // if (way == tag)
-   // {
-   //     Library::printTag(wayName);
-   // }
+    if (way == tag)
+    {
+        Library::printTag(wayName);
+    }
     
 }
 
@@ -408,6 +421,13 @@ void Library::saveToFileBook(std::ostream& out)
  {
     char* charSize = new char[3];
     in.getline (charSize , 3);
+
+    if (charSize[0]== '\0')
+    {
+        std::cout<<"Empty file."<<std::endl;
+        return;
+    }
+    
     size_t size = atoi(charSize);
 
     char* stream = new char[124];
@@ -449,6 +469,13 @@ void Library::saveToFileBook(std::ostream& out)
  {
     char* charSize = new char[3];
     in.getline (charSize , 3);
+
+    if (charSize[0]== '\0')
+    {
+        std::cout<<"Empty file."<<std::endl;
+        return;
+    }
+
     size_t size = atoi(charSize);
 
     char* stream = new char[124];
@@ -469,4 +496,56 @@ void Library::saveToFileBook(std::ostream& out)
     }
     delete[] charSize;
     delete[] stream;
+ }
+
+ void Library::open()
+ {
+    char* file = new char[51];
+    std::cout<<"Enter book file (you have 50 simbols): ";
+    std::cin.getline(file,51);
+    std::ifstream bookIn;
+    bookIn.open(file);
+    if (bookIn.is_open())
+    {
+    loadFromFileBook(bookIn);
+    bookIn.close();
+    }
+    else
+    {
+        std::ofstream bookIn(file);
+    }
+    this->filepathBooks = file;
+
+    
+    std::cout<<"Enter user file (you have 50 simbols): ";
+    std::cin.getline(file,51);
+    std::ifstream userIn;
+    userIn.open(file);
+    if (userIn.is_open())
+    {
+    loadFromFileUser(userIn);
+    userIn.close();
+    }
+    else
+    {
+        std::ofstream userIn(file);
+    }
+    this->filepathUsers = file;
+
+    delete[] file;
+
+ }
+ void Library::save()
+ {
+    std::cout<<this->filepathUsers.getData()<<std::endl;
+    std::ofstream userOut;
+    userOut.open(this->filepathUsers.getData());
+    saveToFileUser(userOut);
+    userOut.close();
+    std::cout<<this->filepathBooks.getData()<<std::endl;
+    std::ofstream bookOut;
+    bookOut.open(this->filepathBooks.getData());
+    saveToFileBook(bookOut);
+    bookOut.close();
+
  }

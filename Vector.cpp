@@ -56,6 +56,20 @@ Vector<T> &Vector<T>::operator=(const Vector<T> &other)
 	}
 	return *this;
 }
+
+template <typename T>
+bool Vector<T>::operator==(const Vector<T> &other)
+{
+	for (size_t i = 0; i < this->size; i++)
+	{
+		if(!(this->data[i]== other.data[i]))
+		{
+			return false;
+		}		
+	}
+	return true;
+}
+
 template <typename T>
 Vector<T>::~Vector()
 {
