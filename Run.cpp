@@ -17,10 +17,10 @@
         std::cout<<"If you do not know what to do write help."<<std::endl; 
         while (isRuning)
         {
-            char* comandIn = new char[3];
             std::cout<<"Enter your comand: ";
-            std::cin.getline(comandIn,16);
-            String comand = comandIn;
+            String comand;
+            std::cin>>comand;
+           
 
             if (comand == "help")
             {
@@ -44,48 +44,75 @@
                 std::cout<<"exit         - end the program"<<std::endl;
             }
 
-            else if (comand != "open" && isOpen == false && comand != "exit")
+             else if (comand == "exit")
+            {
+                isRuning = false;
+                start.save();
+                std::cout<<"------------Have a nice day-------- "<<std::endl;
+            }
+
+             else if (comand != "open" && isOpen == false && comand != "exit")
             {
                std::cout<<"You need to open a file."<<std::endl;
             }
 
-            else if (comand == "open")
+             else if (comand == "open")
             {
                 start.open();
                 std::cout<<"You open a file."<<std::endl;
                 isOpen = true;
             }
 
-            else if (comand == "save" && isOpen)
+             else if (comand == "close" && isOpen)
+            {
+                start.save();
+                Library temp;
+                start = temp;
+                isOpen = false;
+
+            }
+
+             else if (comand == "save" && isOpen)
             {
                 start.save();
                 std::cout<<"You save the file."<<std::endl;
             }
 
-            else if (comand == "saveAs" && isOpen)
+             else if (comand == "saveAs" && isOpen)
             {
-               
+                String fBooks ;
+                std::cout<<"Enter your path for books: ";
+                std::cin>>fBooks;
+
+                String fusers ;
+                std::cout<<"Enter your path for books: ";
+                std::cin>>fusers;
+                
+                start.saveAs(fBooks, fusers);
             }
 
-            else if (comand == "login" && isOpen)
+             else if (comand == "login" && isOpen)
             {
-                char* stream = new char[124];
+              
+                String str;
                 std::cout<<"Please login:"<<std::endl;
                 std::cout<<"Username: ";
-                std::cin.getline (stream,124);
-                curentUser.setName(stream);
-
+                std::cin>>str;
+                curentUser.setName(str.getData());
+                
                 std::cout<<"Password: ";
-                std::cin.getline (stream,124);
-                curentUser.setPaswor(stream);
+                std::cin>>str;
+                curentUser.setPaswor(str.getData());
 
                 Run::isLoged(curentUser);
-               
-                
-                delete[] stream;
             }
 
-            else if (comand == "logout" && isOpen && isLogin)
+             else if (isLogin == false)
+            {
+                 std::cout<<"You need to login."<<std::endl;
+            }
+                       
+             else if (comand == "logout" && isOpen && isLogin)
             {
                 User curEmty;
                 curentUser = curEmty;
@@ -94,40 +121,36 @@
                 isAdmin = false;
             }
 
-            else if (comand == "books all" && isOpen && isLogin)
+             else if (comand == "books all" && isOpen && isLogin)
             {
                 start.allBooks();
             }
 
-            else if (comand == "books find" && isOpen && isLogin)
+             else if (comand == "books find" && isOpen && isLogin)
             {
-                char* stream = new char[124];
-                std::cout<<"Enter way to find (title, author, tag): "<<std::endl;
-                std::cin.getline (stream,124);
-                String  way= stream;
+                String str;
+                std::cout<<"Enter way to find (title, author, tag): ";
+                std::cin>>str;
+                String  way= str;
 
-                std::cout<<"Enter pointer : "<<std::endl;
-                std::cin.getline (stream,124);
-                String wayName = stream;
+                std::cout<<"Enter pointer : ";
+                std::cin>>str;
+                String wayName = str;
                 start.findBook(way, wayName);
-
-                delete[] stream;
             }
 
-            else if (comand == "books sort" && isOpen && isLogin)
+             else if (comand == "books sort" && isOpen && isLogin)
             {
-                char* stream = new char[124];
-                std::cout<<"Enter asc (ascending sort)/desc (descending sort): "<<std::endl;
-                std::cin.getline (stream,124);
-                String ascDesc = stream;
+                String str;
+                std::cout<<"Enter asc (ascending sort)/desc (descending sort): ";
+                std::cin>>str;
+                String ascDesc = str;
 
-                std::cout<<"Enter way to sort (title, author, tag): "<<std::endl;
-                std::cin.getline (stream,124);
-                String  way= stream;
+                std::cout<<"Enter way to sort (title, author, tag): ";
+                std::cin>>str;
+                String  way= str;
 
                 start.sort(way, ascDesc);
-                std::cout<<"You sort the books by "<<stream<<"."<<std::endl;
-                delete[] stream;
             }
 
              else if (comand == "books info" && isOpen && isLogin)
@@ -135,6 +158,11 @@
                 size_t id;
                 std::cin>>id;
                 start.printInfo(id);
+            }
+
+            else if (isAdmin == false)
+            {
+                 std::cout<<"You need to be admin."<<std::endl;
             }
 
              else if (comand == "books add" && isOpen && isLogin && isAdmin)
@@ -157,20 +185,6 @@
                 start.removeUser();
             }
 
-            else if (comand == "close")
-            {
-                start.save();
-                Library temp;
-                start = temp;
-                isOpen = false;
-
-            }
-
-            else if (comand == "exit")
-            {
-                isRuning = false;
-                std::cout<<"------------Have a nice day-------- "<<std::endl;
-            }
             else
             {
                 std::cout<<"Wrong  comand try again (write help). "<<std::endl;

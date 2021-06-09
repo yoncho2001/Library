@@ -21,7 +21,7 @@ public:
     Book &operator=(const Book &other);
     Book(const String author, const String name, const String genre, const String shortDes, const String keywords, size_t year, double rate);
 
-    void setAutor(const String other);
+    void setAuthor(const String other);
     String getAuthor() const;
 
     void setName(const String other);

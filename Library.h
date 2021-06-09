@@ -18,6 +18,7 @@ public:
     Library& operator=(const  Library& other);
 
     const Vector<User>& getUsers()const;
+    const Vector<Book>& getBooks()const;
     void addBook();
     void addUser();
     void removeBook();
@@ -48,6 +49,7 @@ public:
 
     void open();
     void save();
+    void saveAs(String& fBooks, String& fUsers);
 
 };
 #include "Library.cpp"

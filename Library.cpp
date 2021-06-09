@@ -33,6 +33,10 @@ const Vector<User>& Library::getUsers()const
 {
     return this->users;
 }
+const Vector<Book>& Library::getBooks()const
+{
+    return this->books;
+}
 
 void Library::addBook()
 {
@@ -98,10 +102,8 @@ void Library::removeBook()
 
     for (size_t i = 0; i < this->books.getSize(); i++)
     {
-        std::cout <<temp <<"/"<<this->books[i].getName()<<std::endl;
         if(this->books[i].getName() == temp)
         {
-            std::cout <<this->books[i].getName()<<std::endl;
             this->books.popByIndex(i);
             flag = true;
         }
@@ -289,14 +291,18 @@ void Library::findBook( String& way, String& wayName )
     {
        Library::printAuthor(wayName);
     }
-    if (way == title)
+    else if (way == title)
     {
         Library::printTitle(wayName);
     }
 
-    if (way == tag)
+    else if (way == tag)
     {
         Library::printTag(wayName);
+    }
+    else
+    {
+        std::cout<<"Try again."<<std::endl;
     }
     
 }
@@ -312,18 +318,22 @@ void Library::sort( String& way, String& ascDesc)
     if (way == author)
     {
        Library::sortByAuthor();
+       std::cout<<"You sort the books by "<<way<<"."<<std::endl;
     }
     if (way == title)
     {
         Library::sortByTitle();
+        std::cout<<"You sort the books by "<<way<<"."<<std::endl;
     }
     if (way == year)
     {
         Library::sortByYear();
+        std::cout<<"You sort the books by "<<way<<"."<<std::endl;
     }
     if (way == rating)
     {
         Library::sortByRating();
+        std::cout<<"You sort the books by "<<way<<"."<<std::endl;
     }
     if (desc == ascDesc)
     {
@@ -436,7 +446,7 @@ void Library::saveToFileBook(std::ostream& out)
     {
         Book tempBook;
         in.getline (stream,124,'|');
-        tempBook.setAutor(stream);
+        tempBook.setAuthor(stream);
 
         in.getline (stream,124,'|');
         tempBook.setName(stream);
@@ -537,14 +547,28 @@ void Library::saveToFileBook(std::ostream& out)
  }
  void Library::save()
  {
-    std::cout<<this->filepathUsers.getData()<<std::endl;
     std::ofstream userOut;
     userOut.open(this->filepathUsers.getData());
     saveToFileUser(userOut);
     userOut.close();
-    std::cout<<this->filepathBooks.getData()<<std::endl;
+    
     std::ofstream bookOut;
     bookOut.open(this->filepathBooks.getData());
+    saveToFileBook(bookOut);
+    bookOut.close();
+
+ }
+
+ void Library::saveAs(String& fBooks, String& fUsers)
+ {
+    
+    std::ofstream userOut;
+    userOut.open(fUsers.getData());
+    saveToFileUser(userOut);
+    userOut.close();
+    
+    std::ofstream bookOut;
+    bookOut.open(fBooks.getData());
     saveToFileBook(bookOut);
     bookOut.close();
 

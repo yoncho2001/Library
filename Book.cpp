@@ -14,7 +14,7 @@ Book::Book()
 
 Book::Book(const Book &other)
 {
-    Book::setAutor(other.author);
+    Book::setAuthor(other.author);
     Book::setName(other.name);
     Book::setGenre(other.genre);
     Book::setShortDes(other.shortDes);
@@ -28,7 +28,7 @@ Book &Book::operator=(const Book &other)
 {
     if (this != &other)
     {
-        Book::setAutor(other.author);
+        Book::setAuthor(other.author);
         Book::setName(other.name);
         Book::setGenre(other.genre);
         Book::setShortDes(other.shortDes);
@@ -42,7 +42,7 @@ Book &Book::operator=(const Book &other)
 }
 Book::Book(const String author, const String name, const String genre, const String shortDes, const String keywords, size_t year, double rate)
 {
-    Book::setAutor(author);
+    Book::setAuthor(author);
     Book::setName(name);
     Book::setGenre(genre);
     Book::setShortDes(shortDes);
@@ -52,7 +52,7 @@ Book::Book(const String author, const String name, const String genre, const Str
     this->id = counter++;
 }
 
-void Book::setAutor(const String other)
+void Book::setAuthor(const String other)
 {
     this->author = other;
 }
@@ -105,6 +105,7 @@ size_t Book::getID() const
 void Book::setID(const size_t other)
 {
     this->id = other;
+    counter = other + 1;
 }
 
 void Book::setYear(const size_t other)
